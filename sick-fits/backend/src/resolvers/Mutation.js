@@ -1,4 +1,4 @@
-const mutations = {
+const Mutations = {
 
 	async createItem(parent, args, ctx, info){
 		
@@ -17,4 +17,4 @@ const mutations = {
 	},
 };
 
-module.exports = mutations;
+module.exports = Mutations;
