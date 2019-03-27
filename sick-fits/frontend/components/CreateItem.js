@@ -94,10 +94,15 @@ class CreateItem extends Component {
 									required
 									onChange={this.uploadFile}
 								/>
+								{this.state.image && (
+									<img
+										width="200"
+										src={this.state.image}
+										alt="Upload preview"
+									/>
+								)}
 							</label>
-						</fieldset>
 
-						<fieldset disabled={loading} aria-busy={loading}>
 							<label htmlFor="title">
 								Title
 								<input
@@ -110,9 +115,7 @@ class CreateItem extends Component {
 									onChange={this.handleChange}
 								/>
 							</label>
-						</fieldset>
 
-						<fieldset>
 							<label htmlFor="price">
 								Price
 								<input
@@ -125,9 +128,7 @@ class CreateItem extends Component {
 									onChange={this.handleChange}
 								/>
 							</label>
-						</fieldset>
 
-						<fieldset>
 							<label htmlFor="description">
 								Description
 								<textarea
