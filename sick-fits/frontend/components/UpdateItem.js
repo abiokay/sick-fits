@@ -19,11 +19,17 @@ const SINGLE_ITEM_QUERY = gql`
 
 const UPDATE_ITEM_MUTATION = gql`
 	mutation UPDATE_ITEM_MUTATION(
-		$title: String!
-		$description: String!
-		$price: Int!
+		$id: ID!
+		$title: String
+		$description: String
+		$price: Int
 	) {
-		updateItem(title: $title, description: $description, price: $price) {
+		updateItem(
+			id: $id
+			title: $title
+			description: $description
+			price: $price
+		) {
 			id
 			title
 			description
@@ -41,6 +47,19 @@ class UpdateItem extends Component {
 		this.setState({ [name]: val });
 	};
 
+	updateItem = async (e, updateItemMutation) => {
+		e.preventDefault();
+		console.log("Updating Item");
+		console.log(this.state);
+		const res = await updateItemMutation({
+			variables: {
+				id: this.props.id,
+				...this.state
+			}
+		});
+		console.log("Updated");
+	};
+
 	render() {
 		return (
 			<Query
@@ -51,13 +70,19 @@ class UpdateItem extends Component {
 			>
 				{({ data, loading }) => {
 					if (loading) return <p>Loading...</p>;
+					if (!data.item)
+						return <p>No Item found for ID {this.props.id}</p>;
 					return (
 						<Mutation
 							mutation={UPDATE_ITEM_MUTATION}
 							variables={this.state}
 						>
 							{(updateItem, { loading, error }) => (
-								<Form>
+								<Form
+									onSubmit={e =>
+										this.updateItem(e, updateItem)
+									}
+								>
 									<Error error={error} />
 									<fieldset
 										disabled={loading}
@@ -104,7 +129,12 @@ class UpdateItem extends Component {
 											/>
 										</label>
 
-										<button type="submit"> Submit </button>
+										<button type="submit">
+											{" "}
+											Sav{loading
+												? "ing"
+												: "e"} Changes{" "}
+										</button>
 									</fieldset>
 								</Form>
 							)}
