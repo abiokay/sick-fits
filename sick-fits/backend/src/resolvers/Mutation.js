@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 const Mutations = {
 
 	async createItem(parent, args, ctx, info){
@@ -43,6 +45,12 @@ const Mutations = {
 		//delete item
 		return ctx.db.mutation.deleteItem({ where }, info);
 	},
+
+	async signup(parent, args, ctx, info){
+	//lowercase their email
+	args.email = args.emil.toLowerCase();
+	//hash the password
+	}
 };
 
 module.exports = Mutations;
