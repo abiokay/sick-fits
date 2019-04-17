@@ -1,4 +1,5 @@
 import Signup from "../components/Signup";
+import Signin from "../components/Signin";
 import styled from 'styled-components';
 
 
@@ -11,8 +12,8 @@ grid-gap: 20px;
 const SignupPage = props => (
   <Columns>
    <Signup />
-   <Signup />
-   <Signup />
+   <Signin />
+   
   </Columns>
 );
 
